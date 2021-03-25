@@ -14,13 +14,13 @@ interface Book {
   year: number;
 }
 
-const books = [
-  { title: "Преступление и наказание", publisher: "Питер", year: "2010" },
-  { title: "Война и мир", publisher: "O'Reilly", year: "2011" },
-  { title: "Преступление и Наказание", publisher: "Питер", year: "2010" },
-  { title: "Война и мир", publisher: "O'Reilly", year: "2011" },
-  { title: "Преступление и Наказание", publisher: "Питер", year: "2010" },
-  { title: "Война и мир", publisher: "O'Reilly", year: "2011" },
+const books: Array<Book> = [
+  { title: "Преступление и наказание", publisher: "Питер", year: 2010 },
+  { title: "Война и мир", publisher: "O'Reilly", year: 2011 },
+  { title: "Преступление и Наказание", publisher: "Питер", year: 2010 },
+  { title: "Война и мир", publisher: "O'Reilly", year: 2011 },
+  { title: "Преступление и Наказание", publisher: "Питер", year: 2010 },
+  { title: "Война и мир", publisher: "O'Reilly", year: 2011 },
 ];
 
 export const BooksPage: React.FC<Props> = () => {

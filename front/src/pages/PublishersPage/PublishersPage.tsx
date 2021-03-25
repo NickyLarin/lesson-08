@@ -12,7 +12,7 @@ interface Publisher {
   title: string;
 }
 
-const publishers = [{ title: "O'Reilly" }, { title: "Питер" }];
+const publishers: Array<Publisher> = [{ title: "O'Reilly" }, { title: "Питер" }];
 
 export const PublishersPage: React.FC<Props> = () => {
   const getTitle = (item: Publisher) => item.title;

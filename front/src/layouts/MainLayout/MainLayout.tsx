@@ -8,9 +8,14 @@ interface Props {
   path: string;
 }
 
+interface menuItem {
+  href: string;
+  text: string;
+}
+
 const b = block("main-layout");
 
-const menuItems = [
+const menuItems: Array<menuItem> = [
   {
     href: "/ref",
     text: "Каталог",

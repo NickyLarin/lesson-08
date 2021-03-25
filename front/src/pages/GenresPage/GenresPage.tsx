@@ -12,7 +12,7 @@ interface Genre {
   title: string;
 }
 
-const genres = [
+const genres: Array<Genre> = [
   { title: "Интернет" },
   { title: "Программирование" },
   { title: "Базы данных" },

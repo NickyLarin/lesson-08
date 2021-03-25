@@ -21,7 +21,7 @@ export const MainMenu: React.FC<Props> = ({ menuItems, activeIndex }) => {
         const classes = [b("link")];
         if (index === activeIndex) classes.push(b("link", { active: true }));
         return (
-          <a className={classes.join(" ")} href={href}>
+          <a key={index} className={classes.join(" ")} href={href}>
             {text}
           </a>
         );

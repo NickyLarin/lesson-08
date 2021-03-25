@@ -1,6 +1,6 @@
 import { MainLayout } from "../../layouts/MainLayout/MainLayout";
 import { Route } from "react-router-dom";
-import React, { ReactNode } from "react";
+import React from "react";
 
 interface Props {
   exact?: boolean;

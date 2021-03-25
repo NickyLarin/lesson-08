@@ -1,2 +1,9 @@
 .auth-page {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+
+  &__title {
+    font-size: 2.5em;
+  }
 }

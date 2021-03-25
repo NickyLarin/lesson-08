@@ -1,11 +1,20 @@
+import "./AuthPage.scss";
+import { Container } from "../../components/Container/Container";
+import { LoginForm } from "../../components/LoginForm/LoginForm";
 import block from "bem-cn";
 import React from "react";
-import "./AuthPage.scss";
 
 interface Props {}
 
 const b = block("auth-page");
 
 export const AuthPage: React.FC<Props> = () => {
-  return <div className={b()}>Форма авторизации</div>;
+  return (
+    <div className={b()}>
+      <Container flexDirection={"column"}>
+        <h1 className={b("title")}>Авторизация</h1>
+        <LoginForm />
+      </Container>
+    </div>
+  );
 };

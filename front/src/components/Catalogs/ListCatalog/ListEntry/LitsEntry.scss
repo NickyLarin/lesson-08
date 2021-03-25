@@ -1,6 +1,6 @@
 @import "../../../../assets/styles/colors.scss";
 .list-entry {
-  @include dp04;
+  @include dp01;
 
   align-items: center;
   color: #fff;
@@ -26,6 +26,6 @@
   }
 
   &:hover {
-    @include dp04($primary-color);
+    background-color: $primary-color;
   }
 }
