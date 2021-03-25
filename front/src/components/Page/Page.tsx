@@ -1,6 +1,6 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { MainLayout } from '../../layouts/MainLayout/MainLayout'
+import { MainLayout } from "../../layouts/MainLayout/MainLayout";
+import { Route } from "react-router-dom";
+import React, { ReactNode } from "react";
 
 interface Props {
   exact?: boolean;
@@ -15,13 +15,13 @@ export const Page: React.FC<Props> = ({
   exact = false,
   path,
   layout: Layout = MainLayout,
-  component: Component
+  component: Component,
 }) => {
   return (
     <Route exact={exact} path={path}>
-      <Layout>
+      <Layout path={path}>
         <Component />
       </Layout>
     </Route>
-  )
-}
+  );
+};

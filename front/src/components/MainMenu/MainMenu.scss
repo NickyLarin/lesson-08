@@ -1,0 +1,13 @@
+@import "../../assets/styles/colors.scss";
+.main-menu {
+  display: flex;
+
+  &__link {
+    font-size: 1.5em;
+    margin: 0 10px;
+
+    &_active {
+      color: $primary-color;
+    }
+  }
+}
