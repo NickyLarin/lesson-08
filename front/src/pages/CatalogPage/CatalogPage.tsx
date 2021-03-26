@@ -2,6 +2,7 @@ import block from "bem-cn";
 import React from "react";
 import { CardsCatalog } from "../../components/CardsCatalog/CardsCatalog";
 import { Container } from "../../components/Container/Container";
+import { ToggleButton } from "../../components/ToggleButton/ToggleButton";
 import "./CatalogPage.css";
 
 interface Props {}
@@ -19,6 +20,7 @@ const catalogItems = [
 export const CatalogPage: React.FC<Props> = () => {
   return (
     <div className={b()}>
+      <ToggleButton />
       <Container parentBlock={b} flexDirection="column">
         <h1 className={b("title")}>Каталог</h1>
         <CardsCatalog items={catalogItems} />
