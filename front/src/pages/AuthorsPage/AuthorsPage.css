@@ -1,7 +1,11 @@
-.catalog-page {
+.authors-page {
+  color: #fff;
   display: flex;
   justify-content: center;
-  color: #fff;
+
+  &__container {
+  }
+
   &__title {
     font-size: 2.5em;
   }

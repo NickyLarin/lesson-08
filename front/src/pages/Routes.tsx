@@ -1,25 +1,32 @@
-import React from 'react'
-import { Redirect, Switch } from 'react-router-dom'
-import { Page } from '../components/Page/Page'
-import { AuthLayout } from '../layouts/AuthLayout/AuthLayout'
-import { AboutPage } from './AboutPage/AboutPage'
-import { AuthPage } from './AuthPage/AuthPage'
-import { CatalogPage } from './CatalogPage/CatalogPage'
-import { Error404 } from './Error404/Error404'
+import { AboutPage } from "./AboutPage/AboutPage";
+import { AuthLayout } from "../layouts/AuthLayout/AuthLayout";
+import { AuthorsPage } from "./AuthorsPage/AuthorsPage";
+import { AuthPage } from "./AuthPage/AuthPage";
+import { BooksPage } from "./BooksPage/BooksPage";
+import { CatalogPage } from "./CatalogPage/CatalogPage";
+import { Error404Page } from "./Error404Page/Error404Page";
+import { GenresPage } from "./GenresPage/GenresPage";
+import { LanguagesPage } from "./LanguagesPage/LanguagesPage";
+import { Page } from "../components/Page/Page";
+import { PublishersPage } from "./PublishersPage/PublishersPage";
+import { Redirect, Switch } from "react-router-dom";
+import React from "react";
 
-interface Props {
-}
+interface Props {}
 
 export const Routes: React.FC<Props> = () => {
   return (
     <Switch>
-      <Redirect exact from={'/'} to={'/catalog'} />
-      <Page path={'/auth'} layout={AuthLayout} component={AuthPage} />
-      <Page secured path={'/catalog'} component={CatalogPage} />
-      <Page exact secured path={'/ref'} component={() => 'Справочники'} />
-      <Page secured path={'/ref/authors'} component={() => 'Авторы'} />
-      <Page secured path={'/about'} component={AboutPage} />
-      <Page path={'*'} layout={AuthLayout} component={Error404} />
+      <Redirect exact from={"/"} to={"/ref"} />
+      <Page path={"/auth"} layout={AuthLayout} component={AuthPage} />
+      <Page exact secured path={"/ref"} component={CatalogPage} />
+      <Page secured path={"/ref/books"} component={BooksPage} />
+      <Page secured path={"/ref/authors"} component={AuthorsPage} />
+      <Page secured path={"/ref/genres"} component={GenresPage} />
+      <Page secured path={"/ref/publishers"} component={PublishersPage} />
+      <Page secured path={"/ref/languages"} component={LanguagesPage} />
+      <Page secured path={"/about"} component={AboutPage} />
+      <Page path={"*"} layout={AuthLayout} component={Error404Page} />
     </Switch>
-  )
-}
+  );
+};
