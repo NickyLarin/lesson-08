@@ -1,4 +1,4 @@
-import "./LitsEntry.scss";
+import "./LitsEntry.css";
 import block from "bem-cn";
 import React from "react";
 

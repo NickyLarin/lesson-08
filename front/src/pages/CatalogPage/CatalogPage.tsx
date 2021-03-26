@@ -2,7 +2,7 @@ import block from "bem-cn";
 import React from "react";
 import { CardsCatalog } from "../../components/Catalogs/CardsCatalog/CardsCatalog";
 import { Container } from "../../components/Container/Container";
-import "./CatalogPage.scss";
+import "./CatalogPage.css";
 
 interface Props {}
 

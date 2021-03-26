@@ -1,7 +1,8 @@
-@import "../../assets/styles/colors.scss";
+@import "../../assets/styles/elevation.css";
 
 .header {
-  @include dp04;
+  @mixin dp04;
+
   align-items: center;
   color: #fff;
   display: flex;

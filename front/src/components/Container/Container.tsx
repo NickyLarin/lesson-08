@@ -1,4 +1,4 @@
-import "./Container.scss";
+import "./Container.css";
 import { Property } from "csstype";
 import * as CSS from "csstype";
 import block, { Block } from "bem-cn";

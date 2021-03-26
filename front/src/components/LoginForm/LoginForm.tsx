@@ -1,6 +1,6 @@
 import React from "react";
 import block from "bem-cn";
-import "./LoginForm.scss";
+import "./LoginForm.css";
 
 interface Props {}
 

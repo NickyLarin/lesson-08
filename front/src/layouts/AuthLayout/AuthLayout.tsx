@@ -2,7 +2,7 @@ import block from "bem-cn";
 import React from "react";
 import { Header } from "../../components/Header/Header";
 import { MainMenu } from "../../components/MainMenu/MainMenu";
-import "./AuthLayout.scss";
+import "./AuthLayout.css";
 
 interface Props {}
 

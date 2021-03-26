@@ -1,4 +1,4 @@
-import "./ListCatalog.scss";
+import "./ListCatalog.css";
 import { ListEntry } from "./ListEntry/ListEntry";
 import block from "bem-cn";
 import React from "react";

@@ -1,4 +1,4 @@
-import "./GenresPage.scss";
+import "./GenresPage.css";
 import { Container } from "../../components/Container/Container";
 import { ListCatalog } from "../../components/Catalogs/ListCatalog/ListCatalog";
 import block from "bem-cn";

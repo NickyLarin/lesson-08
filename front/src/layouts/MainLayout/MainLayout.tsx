@@ -1,4 +1,4 @@
-import "./MainLayout.scss";
+import "./MainLayout.css";
 import { Header } from "../../components/Header/Header";
 import { MainMenu } from "../../components/MainMenu/MainMenu";
 import block from "bem-cn";

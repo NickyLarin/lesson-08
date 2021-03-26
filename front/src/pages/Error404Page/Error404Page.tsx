@@ -1,7 +1,7 @@
 import block from "bem-cn";
 import React from "react";
 import { Container } from "../../components/Container/Container";
-import "./Error404Page.scss";
+import "./Error404Page.css";
 
 interface Props {}
 

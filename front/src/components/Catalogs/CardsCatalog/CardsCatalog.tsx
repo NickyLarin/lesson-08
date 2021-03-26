@@ -1,4 +1,4 @@
-import "./CardsCatalog.scss";
+import "./CardsCatalog.css";
 import { SimpleCard } from "./SimpleCard/SimpleCard";
 import block from "bem-cn";
 import React from "react";

@@ -1,4 +1,4 @@
-import "./Header.scss";
+import "./Header.css";
 import { Container } from "../Container/Container";
 import block from "bem-cn";
 import React, { ReactNode } from "react";

@@ -1,4 +1,4 @@
-import "./AuthPage.scss";
+import "./AuthPage.css";
 import { Container } from "../../components/Container/Container";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 import block from "bem-cn";

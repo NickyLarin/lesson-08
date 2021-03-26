@@ -1,4 +1,4 @@
-import "./MainMenu.scss";
+import "./MainMenu.css";
 import block from "bem-cn";
 import React from "react";
 

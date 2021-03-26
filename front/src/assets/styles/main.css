@@ -1,0 +1,8 @@
+/* Styles reset */
+@import "./reset.css";
+@import "./colors.css";
+@import "./elevation.css";
+
+body {
+  background-color: var(--background-color);
+}

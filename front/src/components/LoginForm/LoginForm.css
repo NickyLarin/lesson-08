@@ -1,7 +1,7 @@
-@import "../../assets/styles/colors.scss";
+@import "../../assets/styles/elevation.css";
 
 .login-form {
-  @include dp01;
+  @mixin dp01;
 
   align-items: center;
   display: flex;
@@ -29,9 +29,9 @@
   }
 
   &__login-button {
-    @include dp04;
+    @mixin dp04;
 
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     border-radius: 2px;
     border: none;
     cursor: pointer;
@@ -47,7 +47,7 @@
     }
 
     &:hover {
-      background-color: $primary-color-light;
+      background-color: var(--primary-color);
     }
   }
 
