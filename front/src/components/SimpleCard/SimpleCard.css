@@ -1,4 +1,4 @@
-@import "../../../../assets/styles/elevation.css";
+@import "../../assets/styles/elevation.css";
 
 .simple-card {
   @mixin dp01;

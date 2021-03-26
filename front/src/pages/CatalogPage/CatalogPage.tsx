@@ -1,6 +1,6 @@
 import block from "bem-cn";
 import React from "react";
-import { CardsCatalog } from "../../components/Catalogs/CardsCatalog/CardsCatalog";
+import { CardsCatalog } from "../../components/CardsCatalog/CardsCatalog";
 import { Container } from "../../components/Container/Container";
 import "./CatalogPage.css";
 
