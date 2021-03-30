@@ -1,6 +1,7 @@
 import "./MainMenu.css";
 import block from "bem-cn";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface MenuItem {
   href: string;
@@ -21,9 +22,9 @@ export const MainMenu: React.FC<Props> = ({ menuItems, activeIndex }) => {
         const classes = [b("link")];
         if (index === activeIndex) classes.push(b("link", { active: true }));
         return (
-          <a key={index} className={classes.join(" ")} href={href}>
+          <Link className={classes.join(" ")} key={index} to={href}>
             {text}
-          </a>
+          </Link>
         );
       })}
     </nav>
