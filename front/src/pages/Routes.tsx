@@ -18,7 +18,7 @@ interface Props {}
 export const Routes: React.FC<Props> = () => {
   return (
     <Switch>
-      <Redirect exact from={"/"} to={"/ref"} />
+      <Redirect exact from={"/"} to={"/auth/login"} />
       <Redirect exact from={"/auth"} to={"/auth/login"} />
       <Page path={"/auth/login"} layout={AuthLayout} component={AuthPage} />
       <Page path={"/auth/sign-up"} layout={AuthLayout} component={SignUpPage} />

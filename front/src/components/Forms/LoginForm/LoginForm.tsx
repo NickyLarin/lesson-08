@@ -1,18 +1,51 @@
 import "./LoginForm.css";
+import { appActions } from "../../../store/app/actions";
+import { AppState } from "../../../store/app/types";
+import { Auth } from "../../../types/auth";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { FormButton } from "../FormButton/FormButton";
 import { FormInput } from "../FormInput/FormInput";
 import { InputType } from "../FormInput/InputType";
 import { Link } from "react-router-dom";
+import { RootState } from "../../../store/types";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import block from "bem-cn";
-import React from "react";
+import React, { FormEventHandler, MouseEventHandler } from "react";
 
-interface Props {}
+interface StateProps {
+  loading: boolean;
+  errorText: string;
+}
+
+interface DispatchProps extends AppState.ActionThunk {}
+
+interface OwnProps {}
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 const b = block("login-form");
 
-export const LoginForm: React.FC<Props> = () => {
-  const onSubmit = (e: React.SyntheticEvent) => {
+const schema: Yup.SchemaOf<Auth.Login.Params> = Yup.object().shape({
+  login: Yup.string().required(),
+  password: Yup.string().required(),
+});
+
+export const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLogin }) => {
+  const { errors, values, submitForm, handleChange } = useFormik<Auth.Login.Params>({
+    initialValues: {
+      login: "",
+      password: "",
+    },
+    validationSchema: schema,
+    onSubmit: async (fields) => {
+      appLogin(fields);
+    },
+  });
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    submitForm().catch((err) => console.error(`Form submit error: ${err}`));
   };
 
   return (
@@ -25,12 +58,16 @@ export const LoginForm: React.FC<Props> = () => {
             name={"login"}
             htmlType={InputType.Text}
             placeholder={"Имя пользователя"}
+            value={values.login}
+            onChange={handleChange}
           />
           <FormInput
             className={b("password-input")}
-            name={"login"}
+            name={"password"}
             htmlType={InputType.Password}
             placeholder={"Пароль"}
+            value={values.password}
+            onChange={handleChange}
           />
           <FormButton className={b("login-button")} text={"Войти"} />
         </div>
@@ -46,3 +83,12 @@ export const LoginForm: React.FC<Props> = () => {
     </div>
   );
 };
+
+const mapStateToProps: MapStateToProps<StateProps, OwnProps, RootState.State> = ({ app }) => ({
+  loading: app.loading,
+  errorText: app.errorText,
+});
+
+const mapDispatchToProp: MapDispatchToProps<DispatchProps, OwnProps> = { ...appActions };
+
+export const LoginForm = connect(mapStateToProps, mapDispatchToProp)(LoginFormPresenter);

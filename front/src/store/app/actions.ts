@@ -1,17 +1,32 @@
-import { App } from '../../types/app'
-import { AppAction } from './appAction'
-import { AppState } from './types'
+import { apiAuthLogin } from "../../api/auth";
+import { App } from "../../types/app";
+import { AppAction } from "./appAction";
+import { AppState } from "./types";
 
-export const appFetch = (): AppState.Action.Fetch => ({
-  type: AppAction.Fetch
-})
+const appFetch = (): AppState.Action.Fetch => ({
+  type: AppAction.Fetch,
+});
 
-export const appFetchSuccess = (payload: App.Token): AppState.Action.FetchSuccess => ({
+const appFetchSuccess = (payload: App.Token): AppState.Action.FetchSuccess => ({
   type: AppAction.FetchSuccess,
-  payload
-})
+  payload,
+});
 
-export const appFetchError = (payload: string): AppState.Action.FetchError => ({
+const appFetchError = (payload: string): AppState.Action.FetchError => ({
   type: AppAction.FetchError,
-  payload
-})
+  payload,
+});
+
+export const appActions: AppState.ActionThunk = {
+  appLogin: (params) => async (dispatch) => {
+    console.log("app login action start");
+    dispatch(appFetch());
+
+    try {
+      const tokenPair = await apiAuthLogin(params);
+      dispatch(appFetchSuccess(tokenPair));
+    } catch (err) {
+      dispatch(appFetchError("Ошибка авторизации."));
+    }
+  },
+};
