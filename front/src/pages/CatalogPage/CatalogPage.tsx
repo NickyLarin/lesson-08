@@ -20,7 +20,6 @@ const catalogItems = [
 export const CatalogPage: React.FC<Props> = () => {
   return (
     <div className={b()}>
-      <ToggleButton />
       <Container parentBlock={b} flexDirection="column">
         <h1 className={b("title")}>Каталог</h1>
         <CardsCatalog items={catalogItems} />

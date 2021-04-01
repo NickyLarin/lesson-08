@@ -10,6 +10,7 @@ import { LanguagesPage } from "./LanguagesPage/LanguagesPage";
 import { Page } from "../components/Page/Page";
 import { PublishersPage } from "./PublishersPage/PublishersPage";
 import { Redirect, Switch } from "react-router-dom";
+import { SignUpPage } from "./SignUpPage/SignUpPage";
 import React from "react";
 
 interface Props {}
@@ -18,7 +19,9 @@ export const Routes: React.FC<Props> = () => {
   return (
     <Switch>
       <Redirect exact from={"/"} to={"/ref"} />
-      <Page path={"/auth"} layout={AuthLayout} component={AuthPage} />
+      <Redirect exact from={"/auth"} to={"/auth/login"} />
+      <Page path={"/auth/login"} layout={AuthLayout} component={AuthPage} />
+      <Page path={"/auth/sign-up"} layout={AuthLayout} component={SignUpPage} />
       <Page exact secured path={"/ref"} component={CatalogPage} />
       <Page secured path={"/ref/books"} component={BooksPage} />
       <Page secured path={"/ref/authors"} component={AuthorsPage} />

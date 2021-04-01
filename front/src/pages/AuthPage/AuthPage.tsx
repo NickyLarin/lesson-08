@@ -1,6 +1,6 @@
 import "./AuthPage.css";
 import { Container } from "../../components/Container/Container";
-import { LoginForm } from "../../components/LoginForm/LoginForm";
+import { LoginForm } from "../../components/Forms/LoginForm/LoginForm";
 import block from "bem-cn";
 import React from "react";
 
