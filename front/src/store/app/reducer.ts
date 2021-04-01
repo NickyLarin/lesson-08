@@ -30,6 +30,22 @@ export const appReducer: Reducer<AppState.State, AppState.Action.All> = (state =
         loading: false,
         errorText: action.payload,
       };
+    case AppAction.CreateUser:
+      return {
+        ...state,
+        loading: true,
+      };
+    case AppAction.CreateUserSuccess:
+      return {
+        ...state,
+        loading: false,
+      };
+    case AppAction.CreateUserError:
+      return {
+        ...state,
+        loading: false,
+        errorText: action.payload,
+      };
     default:
       return state;
   }

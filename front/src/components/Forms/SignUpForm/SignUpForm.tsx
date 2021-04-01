@@ -1,18 +1,59 @@
 import "./SignUpForm.css";
-import { Link } from "react-router-dom";
-import block from "bem-cn";
-import React from "react";
+import { appSignUp } from "../../../store/app/actions";
+import { AppState } from "../../../store/app/types";
+import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { FormButton } from "../FormButton/FormButton";
 import { FormInput } from "../FormInput/FormInput";
 import { InputType } from "../FormInput/InputType";
+import { Link } from "react-router-dom";
+import { RootState } from "../../../store/types";
+import * as Yup from "yup";
+import block from "bem-cn";
+import React from "react";
+import { User } from "../../../types/user";
+import { useFormik } from "formik";
 
-interface Props {}
+interface StateProps {
+  loading: boolean;
+  errorText: string;
+}
+
+interface DispatchProps {
+  appSignUp: AppState.ThunkActions.AppSignUp;
+}
+
+interface OwnProps {}
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 const b = block("sign-up-form");
 
-export const SignUpForm: React.FC<Props> = () => {
+const schema: Yup.SchemaOf<User.Create.Params> = Yup.object().shape({
+  login: Yup.string().required(),
+  email: Yup.string().email().required(),
+  password: Yup.string().required(),
+  passwordConfirm: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords do not match")
+    .required(),
+});
+
+const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp }) => {
+  const { errors, values, submitForm, handleChange } = useFormik<User.Create.Params>({
+    initialValues: {
+      login: "",
+      email: "",
+      password: "",
+      passwordConfirm: "",
+    },
+    validationSchema: schema,
+    onSubmit: async (fields) => {
+      appSignUp(fields);
+    },
+  });
+
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    submitForm().catch((err) => console.error(`SignUp form submit error: ${err}`));
   };
 
   return (
@@ -25,19 +66,32 @@ export const SignUpForm: React.FC<Props> = () => {
             name={"login"}
             htmlType={InputType.Text}
             placeholder={"Имя пользователя"}
+            value={values.login}
+            onChange={handleChange}
           />
-          <FormInput className={b("email-input")} name={"email"} htmlType={InputType.Email} placeholder={"E-Mail"} />
+          <FormInput
+            className={b("email-input")}
+            name={"email"}
+            htmlType={InputType.Email}
+            placeholder={"E-Mail"}
+            value={values.email}
+            onChange={handleChange}
+          />
           <FormInput
             className={b("password-input")}
             name={"password"}
             htmlType={InputType.Password}
             placeholder={"Пароль"}
+            value={values.password}
+            onChange={handleChange}
           />
           <FormInput
             className={b("password-confirm-input")}
-            name={"password-confirm"}
+            name={"passwordConfirm"}
             htmlType={InputType.Password}
             placeholder={"Повторите пароль"}
+            value={values.passwordConfirm}
+            onChange={handleChange}
           />
           <FormButton className={b("sign-up-button")} text={"Зарегистрироваться"} />
         </div>
@@ -53,3 +107,12 @@ export const SignUpForm: React.FC<Props> = () => {
     </div>
   );
 };
+
+const mapStateToProps: MapStateToProps<StateProps, OwnProps, RootState.State> = ({ app }) => ({
+  loading: app.loading,
+  errorText: app.errorText,
+});
+
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { appSignUp };
+
+export const SignUpForm = connect(mapStateToProps, mapDispatchToProps)(SignUpFormPresenter);

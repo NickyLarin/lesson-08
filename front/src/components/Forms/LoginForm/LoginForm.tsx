@@ -1,5 +1,4 @@
 import "./LoginForm.css";
-import { appActions } from "../../../store/app/actions";
 import { AppState } from "../../../store/app/types";
 import { Auth } from "../../../types/auth";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
@@ -11,14 +10,17 @@ import { RootState } from "../../../store/types";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import block from "bem-cn";
-import React, { FormEventHandler, MouseEventHandler } from "react";
+import React, { FormEventHandler } from "react";
+import { appLogin } from "../../../store/app/actions";
 
 interface StateProps {
   loading: boolean;
   errorText: string;
 }
 
-interface DispatchProps extends AppState.ActionThunk {}
+interface DispatchProps {
+  appLogin: AppState.ThunkActions.AppLogin;
+}
 
 interface OwnProps {}
 
@@ -31,7 +33,7 @@ const schema: Yup.SchemaOf<Auth.Login.Params> = Yup.object().shape({
   password: Yup.string().required(),
 });
 
-export const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLogin }) => {
+const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLogin }) => {
   const { errors, values, submitForm, handleChange } = useFormik<Auth.Login.Params>({
     initialValues: {
       login: "",
@@ -45,7 +47,7 @@ export const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLog
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    submitForm().catch((err) => console.error(`Form submit error: ${err}`));
+    submitForm().catch((err) => console.error(`Login form submit error: ${err}`));
   };
 
   return (
@@ -89,6 +91,6 @@ const mapStateToProps: MapStateToProps<StateProps, OwnProps, RootState.State> = 
   errorText: app.errorText,
 });
 
-const mapDispatchToProp: MapDispatchToProps<DispatchProps, OwnProps> = { ...appActions };
+const mapDispatchToProps: MapDispatchToProps<DispatchProps, OwnProps> = { appLogin };
 
-export const LoginForm = connect(mapStateToProps, mapDispatchToProp)(LoginFormPresenter);
+export const LoginForm = connect(mapStateToProps, mapDispatchToProps)(LoginFormPresenter);

@@ -1,4 +1,5 @@
 import { apiAuthLogin } from "../../api/auth";
+import { apiUserCreate } from "../../api/user";
 import { App } from "../../types/app";
 import { AppAction } from "./appAction";
 import { AppState } from "./types";
@@ -17,16 +18,36 @@ const appFetchError = (payload: string): AppState.Action.FetchError => ({
   payload,
 });
 
-export const appActions: AppState.ActionThunk = {
-  appLogin: (params) => async (dispatch) => {
-    console.log("app login action start");
-    dispatch(appFetch());
+const appCreateUser = (): AppState.Action.CreateUser => ({
+  type: AppAction.CreateUser,
+});
 
-    try {
-      const tokenPair = await apiAuthLogin(params);
-      dispatch(appFetchSuccess(tokenPair));
-    } catch (err) {
-      dispatch(appFetchError("Ошибка авторизации."));
-    }
-  },
+const appCreateUserSuccess = (): AppState.Action.CreateUserSuccess => ({
+  type: AppAction.CreateUserSuccess,
+});
+
+const appCreateUserError = (payload: string): AppState.Action.CreateUserError => ({
+  type: AppAction.CreateUserError,
+  payload,
+});
+
+export const appLogin: AppState.ThunkActions.AppLogin = (params) => async (dispatch) => {
+  dispatch(appFetch());
+
+  try {
+    const tokenPair = await apiAuthLogin(params);
+    dispatch(appFetchSuccess(tokenPair));
+  } catch (err) {
+    dispatch(appFetchError("Ошибка авторизации."));
+  }
+};
+export const appSignUp: AppState.ThunkActions.AppSignUp = (params) => async (dispatch) => {
+  dispatch(appCreateUser());
+
+  try {
+    const createdUser = await apiUserCreate(params);
+    dispatch(appCreateUserSuccess());
+  } catch (err) {
+    dispatch(appCreateUserError("Ошибка регистрации."));
+  }
 };

@@ -8,6 +8,10 @@
     outline: none;
     padding: 40px 0;
     width: 100%;
+
+    &:-webkit-autofill {
+      background: none;
+    }
   }
 
   &__border-span::after {

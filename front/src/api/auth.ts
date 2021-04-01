@@ -3,7 +3,6 @@ import { App } from "../types/app";
 import { Auth } from "../types/auth";
 
 export const apiAuthLogin = async (params: Auth.Login.Params): Promise<App.Token> => {
-  console.log("api auth login start");
   const { data } = await axios.post<App.Token>("/api/v1/auth/login", params);
   return data;
 };
