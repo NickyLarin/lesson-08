@@ -1,8 +1,15 @@
 import { MainLayout } from "../../layouts/MainLayout/MainLayout";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import React from "react";
+import { connect, MapStateToProps } from "react-redux";
+import { RootState } from "../../store/types";
+import { checkAccessToken } from "../../utils";
 
-interface Props {
+interface StateProps {
+  isAuth: boolean;
+}
+
+interface OwnProps {
   exact?: boolean;
   secured?: boolean;
   path: string;
@@ -10,13 +17,22 @@ interface Props {
   component: any;
 }
 
-export const Page: React.FC<Props> = ({
+type Props = OwnProps & StateProps;
+
+export const PagePresenter: React.FC<Props> = ({
   secured = false,
   exact = false,
   path,
   layout: Layout = MainLayout,
   component: Component,
+  isAuth,
 }) => {
+  if (secured && !isAuth) {
+    return <Redirect to={"/auth"} />;
+  } else if (!secured && isAuth) {
+    return <Redirect to={"/"} />;
+  }
+
   return (
     <Route exact={exact} path={path}>
       <Layout path={path}>
@@ -25,3 +41,9 @@ export const Page: React.FC<Props> = ({
     </Route>
   );
 };
+
+const mapStateToProps: MapStateToProps<StateProps, OwnProps, RootState.State> = ({ app }) => ({
+  isAuth: checkAccessToken(app.accessToken),
+});
+
+export const Page = connect(mapStateToProps)(PagePresenter);
