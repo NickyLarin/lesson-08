@@ -1,5 +1,6 @@
 import { apiAuthLogin } from "../../api/auth";
 import { apiUserCreate } from "../../api/user";
+import { browserHistory } from "../../browserHistory";
 import { App } from "../../types/app";
 import { AppAction } from "./appAction";
 import { AppState } from "./types";
@@ -40,14 +41,17 @@ export const appLogin: AppState.ThunkActions.AppLogin = (params) => async (dispa
   } catch (err) {
     dispatch(appFetchError("Ошибка авторизации."));
   }
+  browserHistory.push("/");
 };
+
 export const appSignUp: AppState.ThunkActions.AppSignUp = (params) => async (dispatch) => {
   dispatch(appCreateUser());
 
   try {
-    const createdUser = await apiUserCreate(params);
+    await apiUserCreate(params);
     dispatch(appCreateUserSuccess());
   } catch (err) {
     dispatch(appCreateUserError("Ошибка регистрации."));
   }
+  browserHistory.push("/auth/login");
 };
