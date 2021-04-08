@@ -33,8 +33,8 @@ const schema: Yup.SchemaOf<User.Create.Params> = Yup.object().shape({
   email: Yup.string().email().required(),
   password: Yup.string().required(),
   passwordConfirm: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords do not match")
-    .required(),
+    .required()
+    .test("match", "Пароли не совпадают", (value, context) => value === context.parent.password),
 });
 
 const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp }) => {

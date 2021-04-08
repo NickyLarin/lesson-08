@@ -1,8 +1,8 @@
+import { Action as ActionRedux } from "redux";
 import { App } from "../../types/app";
+import { AppAction } from "./appAction";
 import { Auth } from "../../types/auth";
 import { Thunk } from "../../types/base";
-import { AppAction } from "./appAction";
-import { Action as ActionRedux } from "redux";
 import { User } from "../../types/user";
 
 export declare namespace AppState {
@@ -20,8 +20,9 @@ export declare namespace AppState {
     type CreateUser = ActionRedux<AppAction.CreateUser> & { payload?: undefined };
     type CreateUserSuccess = ActionRedux<AppAction.CreateUserSuccess> & { payload?: undefined };
     type CreateUserError = ActionRedux<AppAction.CreateUserError> & { payload: string };
+    type ClearError = ActionRedux<AppAction.ClearError> & { payload?: undefined };
 
-    type All = Fetch | FetchSuccess | FetchError | CreateUser | CreateUserSuccess | CreateUserError;
+    type All = Fetch | FetchSuccess | FetchError | CreateUser | CreateUserSuccess | CreateUserError | ClearError;
   }
 
   namespace ThunkActions {

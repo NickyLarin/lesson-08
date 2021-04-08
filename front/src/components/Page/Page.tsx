@@ -1,9 +1,9 @@
+import { checkAccessToken } from "../../utils";
+import { connect, MapStateToProps } from "react-redux";
 import { MainLayout } from "../../layouts/MainLayout/MainLayout";
 import { Redirect, Route } from "react-router-dom";
-import React from "react";
-import { connect, MapStateToProps } from "react-redux";
 import { RootState } from "../../store/types";
-import { checkAccessToken } from "../../utils";
+import React from "react";
 
 interface StateProps {
   isAuth: boolean;
@@ -12,6 +12,7 @@ interface StateProps {
 interface OwnProps {
   exact?: boolean;
   secured?: boolean;
+  onlyPublic?: boolean;
   path: string;
   layout?: any;
   component: any;
@@ -21,6 +22,7 @@ type Props = OwnProps & StateProps;
 
 export const PagePresenter: React.FC<Props> = ({
   secured = false,
+  onlyPublic = false,
   exact = false,
   path,
   layout: Layout = MainLayout,
@@ -29,7 +31,8 @@ export const PagePresenter: React.FC<Props> = ({
 }) => {
   if (secured && !isAuth) {
     return <Redirect to={"/auth"} />;
-  } else if (!secured && isAuth) {
+  }
+  if (onlyPublic && isAuth) {
     return <Redirect to={"/"} />;
   }
 

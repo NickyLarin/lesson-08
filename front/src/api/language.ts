@@ -1,11 +1,11 @@
 import { ApiService } from "../services/ApiService";
 import { App } from "../types/app";
 import { AxiosError } from "axios";
-import { User } from "../types/user";
+import { Language } from "../types/language";
 
-export const apiUserCreate = async (params: User.Create.Params): Promise<User.Data> => {
+export const apiLanguageGetAll = async (): Promise<Language.Data[]> => {
   try {
-    const { data } = await ApiService().post<User.Data>("/users/create", params);
+    const { data } = await ApiService(true).get<Language.Data[]>("/languages");
     return data;
   } catch (err) {
     const { response } = err as AxiosError<App.ResponseError>;

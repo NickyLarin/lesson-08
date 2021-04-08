@@ -4,7 +4,7 @@
   @mixin dp04;
 
   align-items: center;
-  color: #fff;
+  color: var(--text-color);
   display: flex;
   height: 56px;
   justify-content: center;
