@@ -6,6 +6,7 @@ import { RootState } from "./types";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/es/storage";
 import thunk from "redux-thunk";
+import { appClearError } from "./app/actions";
 
 const config: PersistConfig<RootState.State> = {
   key: "catalog",
@@ -22,4 +23,7 @@ export const store = createStore(
   )
 );
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store, null, () => {
+  const { dispatch } = store;
+  dispatch(appClearError());
+});

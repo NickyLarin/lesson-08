@@ -1,11 +1,11 @@
 import { ApiService } from "../services/ApiService";
 import { App } from "../types/app";
+import { Author } from "../types/author";
 import { AxiosError } from "axios";
-import { User } from "../types/user";
 
-export const apiUserCreate = async (params: User.Create.Params): Promise<User.Data> => {
+export const apiAuthorGetAll = async (): Promise<Author.Data[]> => {
   try {
-    const { data } = await ApiService().post<User.Data>("/users/create", params);
+    const { data } = await ApiService(true).get<Author.Data[]>("/authors");
     return data;
   } catch (err) {
     const { response } = err as AxiosError<App.ResponseError>;

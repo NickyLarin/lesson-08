@@ -5,4 +5,5 @@ export enum AppAction {
   CreateUser = "app/CreateUser",
   CreateUserSuccess = "app/CreateUserSuccess",
   CreateUserError = "app/CreateUserError",
+  ClearError = "app/ClearError",
 }

@@ -1,4 +1,3 @@
-import { AboutPage } from "./AboutPage/AboutPage";
 import { AuthLayout } from "../layouts/AuthLayout/AuthLayout";
 import { AuthorsPage } from "./AuthorsPage/AuthorsPage";
 import { AuthPage } from "./AuthPage/AuthPage";
@@ -20,15 +19,14 @@ export const Routes: React.FC<Props> = () => {
     <Switch>
       <Redirect exact from={"/"} to={"/ref"} />
       <Redirect exact from={"/auth"} to={"/auth/login"} />
-      <Page path={"/auth/login"} layout={AuthLayout} component={AuthPage} />
-      <Page path={"/auth/sign-up"} layout={AuthLayout} component={SignUpPage} />
+      <Page onlyPublic path={"/auth/login"} layout={AuthLayout} component={AuthPage} />
+      <Page onlyPublic path={"/auth/sign-up"} layout={AuthLayout} component={SignUpPage} />
       <Page exact secured path={"/ref"} component={CatalogPage} />
       <Page secured path={"/ref/books"} component={BooksPage} />
       <Page secured path={"/ref/authors"} component={AuthorsPage} />
       <Page secured path={"/ref/genres"} component={GenresPage} />
       <Page secured path={"/ref/publishers"} component={PublishersPage} />
       <Page secured path={"/ref/languages"} component={LanguagesPage} />
-      <Page secured path={"/about"} component={AboutPage} />
       <Page path={"*"} layout={AuthLayout} component={Error404Page} />
     </Switch>
   );

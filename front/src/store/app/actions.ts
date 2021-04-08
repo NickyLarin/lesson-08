@@ -32,6 +32,10 @@ const appCreateUserError = (payload: string): AppState.Action.CreateUserError =>
   payload,
 });
 
+export const appClearError = (): AppState.Action.ClearError => ({
+  type: AppAction.ClearError,
+});
+
 export const appLogin: AppState.ThunkActions.AppLogin = (params) => async (dispatch) => {
   dispatch(appFetch());
 
