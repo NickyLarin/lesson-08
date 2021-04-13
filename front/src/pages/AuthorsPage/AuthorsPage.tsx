@@ -1,36 +1,48 @@
 import "./AuthorsPage.css";
-import { apiAuthorGetAll } from "../../api/author";
 import { Author } from "../../types/author";
-import { Container } from "../../components/Container/Container";
+import { debounce } from "lodash";
+import { Input } from "../../components/Input/Input";
 import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
+import { useAuthors } from "../../hooks/useAuthors";
 import block from "bem-cn";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEventHandler, useCallback } from "react";
 
 interface Props {}
 
 const b = block("authors-page");
 
 export const AuthorsPage: React.FC<Props> = () => {
-  const [authorsList, setAuthorsList] = useState<Author.Data[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { authorsList, loading, error, setSearch } = useAuthors();
 
-  useEffect(() => {
-    async function setAuthors() {
-      setLoading(true);
-      const authors = await apiAuthorGetAll();
-      setAuthorsList(authors);
-      setLoading(false);
-    }
-    setAuthors();
-  }, []);
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      setSearch(e.target.value);
+    },
+    [setSearch]
+  );
+
+  const debouncedChangeHandler = useCallback(debounce(handleChange, 500), [handleChange]);
 
   const getTitle = (item: Author.Data) => item.name;
+
+  if (error.hasError) {
+    return (
+      <div className={b()}>
+        <h1 className={b("title")}>Авторы</h1>
+        <h1 className={b("error")}>Произошла ошибка</h1>
+      </div>
+    );
+  }
+
   return (
     <div className={b()}>
-      <Container parentBlock={b} flexDirection="column">
-        <h1 className={b("title")}>Авторы</h1>
-        <ListCatalog loading={loading} items={authorsList} getTitle={getTitle} getText={() => null} />
-      </Container>
+      <h1 className={b("title")}>Авторы</h1>
+      <Input name={"search"} placeholder={"Поиск"} onChange={debouncedChangeHandler} />
+      {authorsList.length < 1 ? (
+        <h1 className={b("error")}>Нет результатов</h1>
+      ) : (
+        <ListCatalog loading={loading} items={authorsList} getTitle={getTitle} />
+      )}
     </div>
   );
 };

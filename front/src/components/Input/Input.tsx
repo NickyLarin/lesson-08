@@ -1,31 +1,41 @@
-import "./FormInput.css";
-import { BaseComponentProps } from "../../../types/base";
+import "./Input.css";
+import { BaseComponentProps } from "../../types/base";
 import { InputType } from "./InputType";
 import block from "bem-cn";
-import React, { ChangeEventHandler } from "react";
-import { emptyFunction } from "../../../utils";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
+import { emptyFunction } from "../../utils";
 
 interface Props extends BaseComponentProps {
   name: string;
   htmlType?: InputType;
   placeholder?: string;
   value?: string;
+  defaultValue?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const b = block("form-input");
+const b = block("input");
 
-export const FormInput: React.FC<Props> = ({
+export const Input: React.FC<Props> = ({
   className,
   name,
   htmlType = InputType.Text,
   placeholder = "",
   value = "",
+  defaultValue = "",
   onChange = emptyFunction,
 }) => {
+  const [currentValue, setCurrentValue] = useState<string>(defaultValue);
+
   const handleOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setCurrentValue(e.target.value);
     onChange(e);
   };
+
+  useEffect(() => {
+    setCurrentValue(value);
+  }, [value]);
+
   return (
     <div className={b({}).mix(className)}>
       <input
@@ -33,7 +43,7 @@ export const FormInput: React.FC<Props> = ({
         name={name}
         type={htmlType}
         placeholder={placeholder}
-        value={value}
+        value={currentValue}
         onChange={handleOnChange}
       ></input>
       <span className={b("border-span")}></span>

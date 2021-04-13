@@ -1,5 +1,9 @@
 .main-layout {
   &__main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-top: 16px;
   }
 }

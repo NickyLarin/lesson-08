@@ -3,8 +3,8 @@ import { appSignUp } from "../../../store/app/actions";
 import { AppState } from "../../../store/app/types";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { FormButton } from "../FormButton/FormButton";
-import { FormInput } from "../FormInput/FormInput";
-import { InputType } from "../FormInput/InputType";
+import { Input } from "../../Input/Input";
+import { InputType } from "../../Input/InputType";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../store/types";
 import * as Yup from "yup";
@@ -61,7 +61,7 @@ const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp })
       <span className={b("img").mix("material-icons")}>app_registration</span>
       <form onSubmit={onSubmit}>
         <div className={b("inputs-container")}>
-          <FormInput
+          <Input
             className={b("login-input")}
             name={"login"}
             htmlType={InputType.Text}
@@ -69,7 +69,7 @@ const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp })
             value={values.login}
             onChange={handleChange}
           />
-          <FormInput
+          <Input
             className={b("email-input")}
             name={"email"}
             htmlType={InputType.Email}
@@ -77,7 +77,7 @@ const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp })
             value={values.email}
             onChange={handleChange}
           />
-          <FormInput
+          <Input
             className={b("password-input")}
             name={"password"}
             htmlType={InputType.Password}
@@ -85,7 +85,7 @@ const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp })
             value={values.password}
             onChange={handleChange}
           />
-          <FormInput
+          <Input
             className={b("password-confirm-input")}
             name={"passwordConfirm"}
             htmlType={InputType.Password}

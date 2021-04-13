@@ -4,6 +4,8 @@ import { MainLayout } from "../../layouts/MainLayout/MainLayout";
 import { Redirect, Route } from "react-router-dom";
 import { RootState } from "../../store/types";
 import React from "react";
+import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
+import { Container } from "../Container/Container";
 
 interface StateProps {
   isAuth: boolean;
@@ -39,7 +41,11 @@ export const PagePresenter: React.FC<Props> = ({
   return (
     <Route exact={exact} path={path}>
       <Layout path={path}>
-        <Component />
+        <Container>
+          <ErrorBoundary errorComponent={<h1>Произошла ошибка</h1>}>
+            <Component />
+          </ErrorBoundary>
+        </Container>
       </Layout>
     </Route>
   );

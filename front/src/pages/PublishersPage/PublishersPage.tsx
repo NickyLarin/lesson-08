@@ -1,36 +1,48 @@
 import "./PublishersPage.css";
-import { apiPublisherGetAll } from "../../api/publisher";
-import { Container } from "../../components/Container/Container";
+import { debounce } from "lodash";
+import { Input } from "../../components/Input/Input";
 import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
 import { Publisher } from "../../types/publisher";
+import { usePublishers } from "../../hooks/usePublishers";
 import block from "bem-cn";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEventHandler, useCallback } from "react";
 
 interface Props {}
 
 const b = block("publishers-page");
 
 export const PublishersPage: React.FC<Props> = () => {
-  const [publishersList, setPublishersList] = useState<Publisher.Data[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { publishersList, loading, error, setSearch } = usePublishers();
 
-  useEffect(() => {
-    async function setPublishers() {
-      setLoading(true);
-      const publishers = await apiPublisherGetAll();
-      setPublishersList(publishers);
-      setLoading(false);
-    }
-    setPublishers();
-  }, []);
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      setSearch(e.target.value);
+    },
+    [setSearch]
+  );
+
+  const debouncedChangeHandler = useCallback(debounce(handleChange, 500), [handleChange]);
 
   const getTitle = (item: Publisher.Data) => item.name;
+
+  if (error.hasError) {
+    return (
+      <div className={b()}>
+        <h1 className={b("title")}>Издатели</h1>
+        <h1 className={b("error")}>Произошла ошибка</h1>
+      </div>
+    );
+  }
+
   return (
     <div className={b()}>
-      <Container parentBlock={b} flexDirection="column">
-        <h1 className={b("title")}>Издатели</h1>
-        <ListCatalog loading={loading} items={publishersList} getTitle={getTitle} getText={() => null} />
-      </Container>
+      <h1 className={b("title")}>Издатели</h1>
+      <Input name={"search"} placeholder={"Поиск"} onChange={debouncedChangeHandler} />
+      {publishersList.length < 1 ? (
+        <h1 className={b("error")}>Нет результатов</h1>
+      ) : (
+        <ListCatalog loading={loading} items={publishersList} getTitle={getTitle} />
+      )}
     </div>
   );
 };

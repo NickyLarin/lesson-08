@@ -3,9 +3,9 @@ import { App } from "../types/app";
 import { AxiosError } from "axios";
 import { Publisher } from "../types/publisher";
 
-export const apiPublisherGetAll = async (): Promise<Publisher.Data[]> => {
+export const apiPublisherGetAll = async (params: Publisher.All.Params): Promise<Publisher.Data[]> => {
   try {
-    const { data } = await ApiService(true).get<Publisher.Data[]>("/publishers");
+    const { data } = await ApiService(true).get<Publisher.Data[]>("/publishers", { params });
     return data;
   } catch (err) {
     const { response } = err as AxiosError<App.ResponseError>;
