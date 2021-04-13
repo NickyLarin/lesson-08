@@ -12,7 +12,7 @@ const b = block("header");
 
 export const Header: React.FC<Props> = ({ menu = null }) => (
   <header className={b()}>
-    <Container parentBlock={b}>
+    <Container className={b("container")}>
       <Link className={b("title")} to="/">
         Catalog
       </Link>

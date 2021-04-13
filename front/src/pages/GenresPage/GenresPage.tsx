@@ -1,6 +1,6 @@
 import "./GenresPage.css";
 import { apiGenreGetAll } from "../../api/genre";
-import { Container } from "../../components/Container/Container";
+import { Errors } from "../../errors/types";
 import { Genre } from "../../types/genre";
 import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
 import block from "bem-cn";
@@ -13,12 +13,17 @@ const b = block("genres-page");
 export const GenresPage: React.FC<Props> = () => {
   const [genreList, setGenreList] = useState<Genre.Data[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Errors.APIRequestError>({ hasError: false, errorInfo: null });
 
   useEffect(() => {
     async function setGenres() {
       setLoading(true);
-      const genres = await apiGenreGetAll();
-      setGenreList(genres);
+      try {
+        const genres = await apiGenreGetAll();
+        setGenreList(genres);
+      } catch (err) {
+        setError({ hasError: true, errorInfo: err });
+      }
       setLoading(false);
     }
     setGenres();
@@ -27,10 +32,12 @@ export const GenresPage: React.FC<Props> = () => {
   const getTitle = (item: Genre.Data) => item.name;
   return (
     <div className={b()}>
-      <Container parentBlock={b} flexDirection="column">
-        <h1 className={b("title")}>Жанры</h1>
-        <ListCatalog loading={loading} items={genreList} getTitle={getTitle} getText={() => null} />
-      </Container>
+      <h1 className={b("title")}>Жанры</h1>
+      {error.hasError ? (
+        <h1 className={b("error")}>Произошла ошибка</h1>
+      ) : (
+        <ListCatalog loading={loading} items={genreList} getTitle={getTitle} />
+      )}
     </div>
   );
 };

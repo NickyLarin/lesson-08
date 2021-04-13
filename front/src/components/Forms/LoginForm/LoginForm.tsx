@@ -1,17 +1,17 @@
 import "./LoginForm.css";
+import { appLogin } from "../../../store/app/actions";
 import { AppState } from "../../../store/app/types";
 import { Auth } from "../../../types/auth";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { FormButton } from "../FormButton/FormButton";
-import { FormInput } from "../FormInput/FormInput";
-import { InputType } from "../FormInput/InputType";
+import { Input } from "../../Input/Input";
+import { InputType } from "../../Input/InputType";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../store/types";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import block from "bem-cn";
 import React, { FormEventHandler } from "react";
-import { appLogin } from "../../../store/app/actions";
 
 interface StateProps {
   loading: boolean;
@@ -55,7 +55,7 @@ const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLogin }) =
       <span className={b("img").mix("material-icons")}>login</span>
       <form onSubmit={onSubmit}>
         <div className={b("inputs-container")}>
-          <FormInput
+          <Input
             className={b("login-input")}
             name={"login"}
             htmlType={InputType.Text}
@@ -63,7 +63,7 @@ const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLogin }) =
             value={values.login}
             onChange={handleChange}
           />
-          <FormInput
+          <Input
             className={b("password-input")}
             name={"password"}
             htmlType={InputType.Password}
