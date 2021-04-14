@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiPublisherCreate, apiPublisherDelete, apiPublisherGetAll, apiPublisherUpdate } from "../api/publisher";
+import { browserHistory } from "../browserHistory";
 import { Errors } from "../errors/types";
 import { Publisher } from "../types/publisher";
 
@@ -20,7 +21,6 @@ export const usePublishers = (lazyLoading: boolean = false, defaultSearch: strin
   const [search, setSearch] = useState<string>(defaultSearch);
 
   const getPublishersList = async (params: Publisher.All.Params = {}) => {
-    console.log("getPublishersList called");
     setLoading(true);
     try {
       const publishers = await apiPublisherGetAll(params);
@@ -72,7 +72,7 @@ export const usePublishers = (lazyLoading: boolean = false, defaultSearch: strin
       setLoading(true);
       try {
         await apiPublisherCreate(newPublisher);
-        await getPublishersList();
+        browserHistory.goBack();
       } catch (err) {
         setError({ hasError: true, errorInfo: err });
         setData([]);
@@ -85,13 +85,13 @@ export const usePublishers = (lazyLoading: boolean = false, defaultSearch: strin
   };
 
   useEffect(() => {
-    if (lazyLoading) return;
+    if (lazyLoading && search === defaultSearch) return;
     const params: Publisher.All.Params = {};
     if (search) {
       params.search = search;
     }
     getPublishersList(params);
-  }, [search]);
+  }, [search, lazyLoading, defaultSearch]);
 
   return {
     publishersList: data,

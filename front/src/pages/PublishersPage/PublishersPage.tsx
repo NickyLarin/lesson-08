@@ -1,12 +1,13 @@
 import "./PublishersPage.css";
-import { BorderButton } from "../../components/Button/BorderButton";
+import { BorderButton } from "../../components/BorderButton/BorderButton";
+import { browserHistory } from "../../browserHistory";
 import { debounce } from "lodash";
 import { Input } from "../../components/Input/Input";
 import { List } from "../../components/List/List";
 import { Publisher } from "../../types/publisher";
 import { usePublishers } from "../../hooks/usePublishers";
 import block from "bem-cn";
-import React, { ChangeEventHandler, MouseEventHandler, useCallback, useEffect, useState } from "react";
+import React, { ChangeEventHandler, MouseEventHandler, useCallback } from "react";
 
 interface Props {}
 
@@ -24,7 +25,9 @@ export const PublishersPage: React.FC<Props> = () => {
     [setSearch]
   );
 
-  const handleSaveItem = (id: number, value: any) => {
+  const debouncedChangeHandler = useCallback(debounce(handleChange, 500), [handleChange]);
+
+  const handleSaveItem = (id: number, value: string) => {
     const publisher: Publisher.Data = { id, name: value };
     updatePublisher(publisher);
   };
@@ -33,9 +36,9 @@ export const PublishersPage: React.FC<Props> = () => {
     deletePublisher(id);
   };
 
-  const handleCreateClick: MouseEventHandler<HTMLButtonElement> = (e) => {};
-
-  const debouncedChangeHandler = useCallback(debounce(handleChange, 500), [handleChange]);
+  const handleCreateClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    browserHistory.push("/ref/publishers/create");
+  };
 
   if (error.hasError) {
     return (

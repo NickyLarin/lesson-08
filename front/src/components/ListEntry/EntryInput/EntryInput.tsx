@@ -3,7 +3,7 @@ import { BaseComponentProps } from "../../../types/base";
 import { emptyFunction } from "../../../utils";
 import { InputType } from "../../Input/InputType";
 import block from "bem-cn";
-import React, { ChangeEventHandler, FormEventHandler, useEffect, useRef, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
 
 interface Props extends BaseComponentProps {
   name: string;

@@ -1,11 +1,11 @@
 import { checkAccessToken } from "../../utils";
 import { connect, MapStateToProps } from "react-redux";
+import { Container } from "../Container/Container";
+import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
 import { MainLayout } from "../../layouts/MainLayout/MainLayout";
 import { Redirect, Route } from "react-router-dom";
 import { RootState } from "../../store/types";
 import React from "react";
-import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
-import { Container } from "../Container/Container";
 
 interface StateProps {
   isAuth: boolean;
