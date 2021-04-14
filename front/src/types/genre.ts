@@ -5,4 +5,10 @@ export declare namespace Genre {
     id: number;
     name: string;
   }
+
+  namespace New {
+    interface Data {
+      name: string;
+    }
+  }
 }

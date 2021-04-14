@@ -3,9 +3,11 @@ import { Author } from "../../types/author";
 import { debounce } from "lodash";
 import { Input } from "../../components/Input/Input";
 import { List } from "../../components/List/List";
-import { useAuthors } from "../../hooks/useAuthors";
 import block from "bem-cn";
-import React, { ChangeEventHandler, useCallback } from "react";
+import React, { ChangeEventHandler, MouseEventHandler, useCallback } from "react";
+import { useAuthors } from "../../hooks/useAuthors";
+import { BorderButton } from "../../components/BorderButton/BorderButton";
+import { browserHistory } from "../../browserHistory";
 
 interface Props {}
 
@@ -14,7 +16,7 @@ const b = block("authors-page");
 class AuthorsList extends List<Author.Data> {}
 
 export const AuthorsPage: React.FC<Props> = () => {
-  const { authorsList, loading, error, setSearch } = useAuthors();
+  const { authorsList, loading, error, setSearch, updateAuthor, deleteAuthor } = useAuthors(false);
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => {
@@ -25,8 +27,20 @@ export const AuthorsPage: React.FC<Props> = () => {
 
   const debouncedChangeHandler = useCallback(debounce(handleChange, 500), [handleChange]);
 
-  const getTitle = (item: Author.Data) => item.name;
+  const handleSaveItem = (id: number, value: string) => {
+    const publisher: Author.Data = { id, name: value };
+    updateAuthor(publisher);
+  };
 
+  const handleDeleteItem = (id: number) => {
+    deleteAuthor(id);
+  };
+
+  const handleCreateClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    browserHistory.push("/ref/authors/create");
+  };
+
+  const getAuthorName = (item: Author.Data) => item.name;
   if (error.hasError) {
     return (
       <div className={b()}>
@@ -35,15 +49,23 @@ export const AuthorsPage: React.FC<Props> = () => {
       </div>
     );
   }
-
   return (
     <div className={b()}>
       <h1 className={b("title")}>Авторы</h1>
-      <Input name={"search"} placeholder={"Поиск"} onChange={debouncedChangeHandler} />
+      <div className={b("controls-container")}>
+        <Input className={b("search-input")} name={"search"} placeholder={"Поиск"} onChange={debouncedChangeHandler} />
+        <BorderButton className={b("create-button")} text={"Создать"} onClick={handleCreateClick} />
+      </div>
       {authorsList.length < 1 ? (
         <h1 className={b("error")}>Нет результатов</h1>
       ) : (
-        <AuthorsList loading={loading} items={authorsList} getItemValue={getTitle} />
+        <AuthorsList
+          loading={loading}
+          items={authorsList}
+          getItemValue={getAuthorName}
+          saveItem={handleSaveItem}
+          deleteItem={handleDeleteItem}
+        />
       )}
     </div>
   );

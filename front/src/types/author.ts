@@ -6,6 +6,12 @@ export declare namespace Author {
     name: string;
   }
 
+  namespace New {
+    interface Data {
+      name: string;
+    }
+  }
+
   namespace All {
     interface Params {
       search?: string;
