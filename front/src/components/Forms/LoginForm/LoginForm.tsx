@@ -34,7 +34,7 @@ const schema: Yup.SchemaOf<Auth.Login.Params> = Yup.object().shape({
 });
 
 const LoginFormPresenter: React.FC<Props> = ({ loading, errorText, appLogin }) => {
-  const { errors, values, submitForm, handleChange } = useFormik<Auth.Login.Params>({
+  const { values, submitForm, handleChange } = useFormik<Auth.Login.Params>({
     initialValues: {
       login: "",
       password: "",

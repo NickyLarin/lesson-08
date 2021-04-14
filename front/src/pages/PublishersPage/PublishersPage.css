@@ -17,11 +17,13 @@
   &__controls-container {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+    margin-bottom: 8px;
   }
 
   &__search-input {
     flex-grow: 1;
-    padding-left: 32px;
+    padding-left: 16px;
   }
 
   &__create-button {

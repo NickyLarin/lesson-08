@@ -15,7 +15,7 @@ interface Props<T extends ObjectWithID> {
   getItemValue: (item: T) => string;
   getItemInfo?: ((item: T) => string) | null;
   loading?: boolean;
-  saveItem?: (id: number, value: any) => void;
+  saveItem?: (id: number, value: string) => void;
   deleteItem?: (id: number) => void;
 }
 
@@ -50,11 +50,10 @@ export class List<T extends ObjectWithID> extends React.Component<Props<T>, Stat
     if (loading) return <Spinner className={b("loading-spinner")} size={"20em"} lineWidth={50} />;
     return (
       <div className={b()}>
-        {items.map((item: any, index: number) => (
+        {items.map((item: T, index: number) => (
           <ListEntry
             active={index === activeEntryIndex}
             key={item.id}
-            id={item.id}
             itemValue={getItemValue(item)}
             itemInfo={!!getItemInfo ? getItemInfo(item) : null}
             setActive={(isActive: boolean) => {

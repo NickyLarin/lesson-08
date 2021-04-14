@@ -1,9 +1,9 @@
 import "./Input.css";
 import { BaseComponentProps } from "../../types/base";
+import { emptyFunction } from "../../utils";
 import { InputType } from "./InputType";
 import block from "bem-cn";
 import React, { ChangeEventHandler, useEffect, useState } from "react";
-import { emptyFunction } from "../../utils";
 
 interface Props extends BaseComponentProps {
   name: string;
@@ -46,7 +46,7 @@ export const Input: React.FC<Props> = ({
         value={currentValue}
         onChange={handleOnChange}
       ></input>
-      <span className={b("border-span")}></span>
+      <span className={b("input-border")}></span>
     </div>
   );
 };

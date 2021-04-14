@@ -38,7 +38,7 @@ const schema: Yup.SchemaOf<User.Create.Params> = Yup.object().shape({
 });
 
 const SignUpFormPresenter: React.FC<Props> = ({ loading, errorText, appSignUp }) => {
-  const { errors, values, submitForm, handleChange } = useFormik<User.Create.Params>({
+  const { values, submitForm, handleChange } = useFormik<User.Create.Params>({
     initialValues: {
       login: "",
       email: "",

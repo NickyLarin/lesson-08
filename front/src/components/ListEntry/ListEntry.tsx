@@ -1,16 +1,14 @@
 import "./ListEntry.css";
-import { EntryInput } from "./EntryInput/EntryInput";
-import block from "bem-cn";
-import React, { MouseEventHandler, useEffect, useState } from "react";
 import { BaseComponentProps } from "../../types/base";
 import { emptyFunction } from "../../utils";
-import { Utils } from "../../types/utils";
 import { EntryButton } from "./EntryButton/EntryButton";
-import { usePublishers } from "../../hooks/usePublishers";
+import { EntryInput } from "./EntryInput/EntryInput";
+import { Utils } from "../../types/utils";
+import block from "bem-cn";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 
 interface Props extends BaseComponentProps {
   active: boolean;
-  id: number;
   itemValue: string;
   itemInfo?: string | null;
   setActive?: ((isActive: boolean) => void) | Utils.EmptyFunction;
@@ -23,7 +21,6 @@ const b = block("list-entry");
 export const ListEntry: React.FC<Props> = ({
   className,
   active,
-  id,
   itemValue,
   itemInfo = null,
   setActive = emptyFunction,
@@ -51,8 +48,11 @@ export const ListEntry: React.FC<Props> = ({
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "Enter" || e.code === "NumpadEnter") saveItem(currentItemValue);
-      else if (e.code === "Escape") setActive(false);
+      if (["Enter", "NumpadEnter"].includes(e.code)) {
+        saveItem(currentItemValue);
+      } else if (e.code === "Escape") {
+        setActive(false);
+      }
     };
     if (active) {
       document.addEventListener("keydown", onKeyDown);
@@ -60,7 +60,7 @@ export const ListEntry: React.FC<Props> = ({
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [active, currentItemValue]);
+  }, [active, currentItemValue, saveItem, setActive]);
 
   if (active) {
     return (
@@ -85,7 +85,7 @@ export const ListEntry: React.FC<Props> = ({
       {itemInfo && <span className={b("item-info")}>{itemInfo}</span>}
       <div className={b("buttons-container")}>
         <EntryButton className={b("left-button")} icon={"edit"} onClick={handleEditClick} />
-        <EntryButton className={b("right-button")} icon={"close"} onClick={handleDeleteClick} />
+        <EntryButton className={b("right-button")} icon={"delete"} onClick={handleDeleteClick} />
       </div>
     </div>
   );
