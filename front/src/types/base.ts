@@ -6,3 +6,7 @@ export interface BaseComponentProps {
 }
 
 export type Thunk<T = void> = (params: T) => ThunkAction<Promise<void> | void, RootState.State, {}, any> | void;
+
+export interface ObjectWithID {
+  id: number;
+}

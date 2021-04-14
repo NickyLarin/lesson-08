@@ -2,13 +2,15 @@ import "./BooksPage.css";
 import { apiBookGetAll } from "../../api/book";
 import { Book } from "../../types/book";
 import { Errors } from "../../errors/types";
-import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
+import { List } from "../../components/List/List";
 import block from "bem-cn";
 import React, { useEffect, useState } from "react";
 
 interface Props {}
 
 const b = block("books-page");
+
+class BooksList extends List<Book.Data> {}
 
 export const BooksPage: React.FC<Props> = () => {
   const [booksList, setBooksList] = useState<Book.Data[]>([]);
@@ -41,7 +43,7 @@ export const BooksPage: React.FC<Props> = () => {
       {error.hasError ? (
         <h1 className={b("error")}>Произошла ошибка</h1>
       ) : (
-        <ListCatalog loading={loading} items={booksList} getTitle={getTitle} getText={getText} />
+        <BooksList loading={loading} items={booksList} getItemValue={getTitle} getItemInfo={getText} />
       )}
     </div>
   );

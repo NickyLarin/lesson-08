@@ -10,7 +10,7 @@
   flex-direction: column;
   height: 300px;
   justify-content: center;
-  margin: 16px;
+  transition: background-color var(--bg-color-transition-time);
 
   &__img {
     font-size: 6em;
@@ -24,6 +24,6 @@
   }
 
   &:hover {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color-hover);
   }
 }

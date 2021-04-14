@@ -2,8 +2,9 @@ import "./SimpleCard.css";
 import block from "bem-cn";
 import React from "react";
 import { Link } from "react-router-dom";
+import { BaseComponentProps } from "../../types/base";
 
-interface Props {
+interface Props extends BaseComponentProps {
   title: string;
   img: string;
   href: string;
@@ -11,13 +12,9 @@ interface Props {
 
 const b = block("simple-card");
 
-export const SimpleCard: React.FC<Props> = ({ title, img, href }) => {
-  // const onClick = (e: React.SyntheticEvent) => {
-  //   e.preventDefault();
-  //   window.location.href = href;
-  // };
+export const SimpleCard: React.FC<Props> = ({ className, title, img, href }) => {
   return (
-    <Link className={b()} to={href}>
+    <Link className={b({}).mix(className)} to={href}>
       <span className={[b("img"), "material-icons"].join(" ")}>{img}</span>
       <p className={b("title")}>{title}</p>
     </Link>

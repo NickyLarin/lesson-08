@@ -2,7 +2,7 @@ import "./AuthorsPage.css";
 import { Author } from "../../types/author";
 import { debounce } from "lodash";
 import { Input } from "../../components/Input/Input";
-import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
+import { List } from "../../components/List/List";
 import { useAuthors } from "../../hooks/useAuthors";
 import block from "bem-cn";
 import React, { ChangeEventHandler, useCallback } from "react";
@@ -10,6 +10,8 @@ import React, { ChangeEventHandler, useCallback } from "react";
 interface Props {}
 
 const b = block("authors-page");
+
+class AuthorsList extends List<Author.Data> {}
 
 export const AuthorsPage: React.FC<Props> = () => {
   const { authorsList, loading, error, setSearch } = useAuthors();
@@ -41,7 +43,7 @@ export const AuthorsPage: React.FC<Props> = () => {
       {authorsList.length < 1 ? (
         <h1 className={b("error")}>Нет результатов</h1>
       ) : (
-        <ListCatalog loading={loading} items={authorsList} getTitle={getTitle} />
+        <AuthorsList loading={loading} items={authorsList} getItemValue={getTitle} />
       )}
     </div>
   );

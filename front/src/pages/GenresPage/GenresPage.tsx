@@ -2,13 +2,15 @@ import "./GenresPage.css";
 import { apiGenreGetAll } from "../../api/genre";
 import { Errors } from "../../errors/types";
 import { Genre } from "../../types/genre";
-import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
+import { List } from "../../components/List/List";
 import block from "bem-cn";
 import React, { useEffect, useState } from "react";
 
 interface Props {}
 
 const b = block("genres-page");
+
+class GenresList extends List<Genre.Data> {}
 
 export const GenresPage: React.FC<Props> = () => {
   const [genreList, setGenreList] = useState<Genre.Data[]>([]);
@@ -36,7 +38,7 @@ export const GenresPage: React.FC<Props> = () => {
       {error.hasError ? (
         <h1 className={b("error")}>Произошла ошибка</h1>
       ) : (
-        <ListCatalog loading={loading} items={genreList} getTitle={getTitle} />
+        <GenresList loading={loading} items={genreList} getItemValue={getTitle} />
       )}
     </div>
   );

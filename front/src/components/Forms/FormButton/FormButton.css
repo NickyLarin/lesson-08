@@ -9,16 +9,15 @@
   cursor: pointer;
   font-size: 2em;
   height: 64px;
-  margin-top: 32px;
   outline: none;
   overflow: hidden;
-  transition: background-color 0.3s;
+  transition: background-color var(--bg-color-transition-time);
 
   &:focus {
     outline: none;
   }
 
   &:hover {
-    background-color: var(--primary-color-light);
+    background-color: var(--primary-color-hover);
   }
 }

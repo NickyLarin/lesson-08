@@ -19,7 +19,7 @@ export const CardsCatalog: React.FC<Props> = ({ items }) => {
   return (
     <div className={b()}>
       {items.map((item: CardItem, index: number) => (
-        <SimpleCard key={index} title={item.title} img={item.img} href={item.href} />
+        <SimpleCard className={b("card")} key={index} title={item.title} img={item.img} href={item.href} />
       ))}
     </div>
   );
