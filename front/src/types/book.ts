@@ -1,5 +1,7 @@
+import { ObjectWithID } from "./base";
+
 export declare namespace Book {
-  interface Data {
+  interface Data extends ObjectWithID {
     id: number;
     title: string;
     year: number;

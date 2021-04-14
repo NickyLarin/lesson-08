@@ -1,3 +1,5 @@
+import { ObjectWithID } from "./base";
+
 export declare namespace User {
   namespace Create {
     interface Params {
@@ -8,7 +10,7 @@ export declare namespace User {
     }
   }
 
-  interface Data {
+  interface Data extends ObjectWithID {
     id: number;
     login: string;
     email: string;

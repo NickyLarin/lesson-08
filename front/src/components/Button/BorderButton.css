@@ -1,0 +1,36 @@
+.border-button {
+  align-items: center;
+  display: flex;
+  font-size: 2.5em;
+  outline: none;
+  padding: 0px 16px;
+  position: relative;
+  transition: color var(--color-transition-time);
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: var(--primary-color-hover);
+  }
+
+  &__text {
+    display: flex;
+  }
+
+  &__border-span::after {
+    background: #fff;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 72px;
+    transition: background-color var(--bg-color-transition-time);
+    width: 100%;
+  }
+
+  &:hover &__border-span::after {
+    background: var(--primary-color-hover);
+  }
+}

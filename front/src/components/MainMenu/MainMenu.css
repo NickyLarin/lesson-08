@@ -4,9 +4,15 @@
   &__link {
     font-size: 1.5em;
     margin: 0 10px;
+    transition: color var(--color-transition-time);
+    user-select: none;
 
     &_active {
       color: var(--primary-color);
+    }
+
+    &:hover {
+      color: var(--primary-color-hover);
     }
   }
 }

@@ -8,21 +8,17 @@
     outline: none;
     padding: 40px 0;
     width: 100%;
-
-    &:-webkit-autofill {
-      background: none;
-    }
   }
 
   &__border-span::after {
+    background: #fff;
     content: "";
+    height: 2px;
+    left: 0;
     position: absolute;
     top: 72px;
-    left: 0;
+    transition: background-color var(--bg-color-transition-time);
     width: 100%;
-    height: 2px;
-    background: #fff;
-    transition: background 0.3s;
   }
 
   &__input:focus ~ &__border-span::after {

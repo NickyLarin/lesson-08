@@ -13,4 +13,18 @@
     margin-top: 24px;
     text-align: center;
   }
+
+  &__controls-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__search-input {
+    flex-grow: 1;
+    padding-left: 32px;
+  }
+
+  &__create-button {
+    margin-left: 8px;
+  }
 }

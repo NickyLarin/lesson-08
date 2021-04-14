@@ -1,7 +1,13 @@
 /* Styles reset */
-@import "./reset.css";
 @import "./colors.css";
 @import "./elevation.css";
+@import "./reset.css";
+
+:root {
+  --bg-color-transition-time: 0.3s;
+  --color-transition-time: 0.3s;
+  --opacity-transition-time: 0.3s;
+}
 
 body {
   background-color: var(--background-color);

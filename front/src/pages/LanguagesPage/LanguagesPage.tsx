@@ -2,13 +2,15 @@ import "./LanguagesPage.css";
 import { apiLanguageGetAll } from "../../api/language";
 import { Errors } from "../../errors/types";
 import { Language } from "../../types/language";
-import { ListCatalog } from "../../components/ListCatalog/ListCatalog";
+import { List } from "../../components/List/List";
 import block from "bem-cn";
 import React, { useEffect, useState } from "react";
 
 interface Props {}
 
 const b = block("languages-page");
+
+class LanguagesList extends List<Language.Data> {}
 
 export const LanguagesPage: React.FC<Props> = () => {
   const [languagesList, setLanguagesList] = useState<Language.Data[]>([]);
@@ -36,7 +38,7 @@ export const LanguagesPage: React.FC<Props> = () => {
       {error.hasError ? (
         <h1 className={b("error")}>Произошла ошибка</h1>
       ) : (
-        <ListCatalog loading={loading} items={languagesList} getTitle={getTitle} />
+        <LanguagesList loading={loading} items={languagesList} getItemValue={getTitle} />
       )}
     </div>
   );
