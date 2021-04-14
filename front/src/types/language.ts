@@ -5,4 +5,10 @@ export declare namespace Language {
     id: number;
     name: string;
   }
+
+  namespace New {
+    interface Data {
+      name: string;
+    }
+  }
 }

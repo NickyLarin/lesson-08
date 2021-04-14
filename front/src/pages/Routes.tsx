@@ -3,6 +3,7 @@ import { AuthorsPage } from "./AuthorsPage/AuthorsPage";
 import { AuthPage } from "./AuthPage/AuthPage";
 import { BooksPage } from "./BooksPage/BooksPage";
 import { CatalogPage } from "./CatalogPage/CatalogPage";
+import { CreateAuthorPage } from "./AuthorsPage/Create/CreateAuthorPage";
 import { CreatePublisherPage } from "./PublishersPage/Create/CreatePublisherPage";
 import { Error404Page } from "./Error404Page/Error404Page";
 import { GenresPage } from "./GenresPage/GenresPage";
@@ -24,7 +25,8 @@ export const Routes: React.FC<Props> = () => {
       <Page onlyPublic path={"/auth/sign-up"} layout={AuthLayout} component={SignUpPage} />
       <Page exact secured path={"/ref"} component={CatalogPage} />
       <Page secured path={"/ref/books"} component={BooksPage} />
-      <Page secured path={"/ref/authors"} component={AuthorsPage} />
+      <Page exact secured path={"/ref/authors"} component={AuthorsPage} />
+      <Page secured path={"/ref/authors/create"} component={CreateAuthorPage} />
       <Page secured path={"/ref/genres"} component={GenresPage} />
       <Page exact secured path={"/ref/publishers"} component={PublishersPage} />
       <Page secured path={"/ref/publishers/create"} component={CreatePublisherPage} />
